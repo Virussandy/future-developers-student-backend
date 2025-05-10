@@ -18,7 +18,7 @@ app.use('/api/student', homeworkRoutes);
 
 // ✅ Add a test route to verify deployment works
 app.get('/api/ping', (req, res) => {
-  res.json({ message: "pong - deployment working!" });
+  res.json({ message: "pong - deployment working Bro!" });
 });
 
 mongoose.connect(process.env.MONGO_URI)
