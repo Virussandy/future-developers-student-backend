@@ -7,26 +7,27 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// app.use('/uploads', express.static('../Admin_Panel/backend/uploads'));
-
 const path = require("path");
 app.use("/uploads", express.static(path.join(__dirname, "../../Admin_Panel/backend/uploads")));
 
-
 const studentRoutes = require('./routes/studentRoutes');
 app.use('/api/student', studentRoutes);
+
 const homeworkRoutes = require('./routes/homeworkRoutes');
-app.use('/api/student', homeworkRoutes); 
+app.use('/api/student', homeworkRoutes);
+
+// ✅ Add a test route to verify deployment works
+app.get('/api/ping', (req, res) => {
+  res.json({ message: "pong - deployment working!" });
+});
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log('MongoDB Connected');
-    app.listen(process.env.PORT, () => {
-      console.log(`Server running on port ${process.env.PORT}`);
+
+    // ✅ Single app.listen call with 0.0.0.0
+    app.listen(process.env.PORT, '0.0.0.0', () => {
+      console.log(`Server running on http://0.0.0.0:${process.env.PORT}`);
     });
   })
   .catch(err => console.log(err));
-
-app.listen(process.env.PORT, '0.0.0.0', () => {
-  console.log(`Server running on http://0.0.0.0:${process.env.PORT}`);
-});
-
