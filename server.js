@@ -25,3 +25,8 @@ mongoose.connect(process.env.MONGO_URI)
     });
   })
   .catch(err => console.log(err));
+
+app.listen(process.env.PORT, '0.0.0.0', () => {
+  console.log(`Server running on http://0.0.0.0:${process.env.PORT}`);
+});
+
